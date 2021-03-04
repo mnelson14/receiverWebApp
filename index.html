@@ -1,4 +1,4 @@
-<html>
+<html>		
 <head>
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
@@ -6,11 +6,27 @@
 </head>
 <body>
   <!-- <cast-media-player></cast-media-player> -->
-<video width="320" height="240" autoplay>
+  <video id="video1" width="320" height="240" autoplay>
   	<source src="https://ia800600.us.archive.org/18/items/3.FranceFalls/3.%20France%20Falls.mp4" type="video/mp4">
   </video>
   <script>
+	var elem = document.getElementById("video1");
+
+	function openFullscreen() {
+	if (elem.requestFullscreen) {
+	    elem.requestFullscreen();
+	  } else if (elem.webkitRequestFullscreen) { /* Safari */
+	    elem.webkitRequestFullscreen();
+	  } else if (elem.msRequestFullscreen) { /* IE11 */
+	    elem.msRequestFullscreen();
+	  }
+	}
+
+	// openFullscreen();	
+
     cast.framework.CastReceiverContext.getInstance().start();
+
+    document.write(cast.framework.messages.MediaInformation.contentUrl);
   </script>
 </body>
 </html>
