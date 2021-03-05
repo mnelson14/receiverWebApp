@@ -12,7 +12,7 @@
   <p id="text1" style="color:red;"></p>
   <p id="text2" style="color:red;"></p>
   <p id="text3" style="color:red;"></p>
-<!--   <p id="text4" style="color:red;"></p>
+  <p id="text4" style="color:red;"></p>
   <p id="text5" style="color:red;"></p>
   <p id="text6" style="color:red;"></p>
   <p id="text7" style="color:red;"></p>
@@ -20,13 +20,14 @@
   <p id="text9" style="color:red;"></p>
   <p id="text10" style="color:red;"></p>
   <p id="text11" style="color:red;"></p>
-  <p id="text12" style="color:red;"></p> -->
+  <p id="text12" style="color:red;"></p>
 
 
 
 
 
   <script>
+
 	var elem = document.getElementById("video1");
 
 	function openFullscreen() {
@@ -41,7 +42,7 @@
 
 	// openFullscreen();	
 
-    cast.framework.CastReceiverContext.getInstance().start();
+    // cast.framework.CastReceiverContext.getInstance().start();
 
     document.getElementById("text1").innerHTML = cast.framework.messages.MediaInformation;
 
@@ -49,7 +50,7 @@
 
     document.getElementById("text3").innerHTML = cast.framework.messages.MediaInformation.contentUrl;
 
-    // document.getElementById("text4").innerHTML = cast.framework.messages.MediaInformation;
+    document.getElementById("text4").innerHTML = cast.framework.CastReceiverContext.getInstance();
 
     // document.getElementById("text5").innerHTML = cast.framework.messages.MediaInformation;
 
