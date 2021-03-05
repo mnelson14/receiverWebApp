@@ -1,4 +1,4 @@
-<html>		
+  <html>		
 <head>
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
@@ -10,6 +10,22 @@
   	<source src="https://ia800600.us.archive.org/18/items/3.FranceFalls/3.%20France%20Falls.mp4" type="video/mp4">
   </video> -->
   <p id="text1" style="color:red;"></p>
+  <p id="text2" style="color:red;"></p>
+  <p id="text3" style="color:red;"></p>
+<!--   <p id="text4" style="color:red;"></p>
+  <p id="text5" style="color:red;"></p>
+  <p id="text6" style="color:red;"></p>
+  <p id="text7" style="color:red;"></p>
+  <p id="text8" style="color:red;"></p>
+  <p id="text9" style="color:red;"></p>
+  <p id="text10" style="color:red;"></p>
+  <p id="text11" style="color:red;"></p>
+  <p id="text12" style="color:red;"></p> -->
+
+
+
+
+
   <script>
 	var elem = document.getElementById("video1");
 
@@ -27,7 +43,30 @@
 
     cast.framework.CastReceiverContext.getInstance().start();
 
-    document.getElementById("text1").innerHTML = cast.framework.messages.MediaInformation.contentId;
+    document.getElementById("text1").innerHTML = cast.framework.messages.MediaInformation;
+
+    document.getElementById("text2").innerHTML = cast.framework.NetworkRequestInfo.url;
+
+    document.getElementById("text3").innerHTML = cast.framework.messages.MediaInformation.contentUrl;
+
+    // document.getElementById("text4").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text5").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text6").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text7").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text8").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text9").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text10").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text11").innerHTML = cast.framework.messages.MediaInformation;
+
+    // document.getElementById("text12").innerHTML = cast.framework.messages.MediaInformation;
+
 
   </script>
 </body>
