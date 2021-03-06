@@ -56,6 +56,8 @@
         loadRequestData.media.entity = loadRequestData.media.contentId;
       }
 
+      holdingURL = loadRequestData.media.entity;
+
       return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
                                           loadRequestData.credentials)
         .then(asset => {
@@ -74,27 +76,21 @@
 
     // document.getElementById("text1").innerHTML = options;
 
-    // document.getElementById("text2").innerHTML = cast.framework.messages.LoadRequestData.customData;
+    document.getElementById("text2").innerHTML = cast.framework.messages.LoadRequestData.customData;
 
     // document.getElementById("text3").innerHTML = cast.framework.playerManager.getMediaInformation();
 
     document.getElementById("text4").innerHTML = holdingURL;
 
-    document.getElementById("text5").innerHTML = cast.framework.playerManager.getMediaInformation().contentUrl;
+    // document.getElementById("text5").innerHTML = cast.framework.playerManager.getMediaInformation().contentUrl;
 
-    // document.getElementById("text6").innerHTML = cast.framework.messages;
-
-    // document.getElementById("text7").innerHTML = cast.framework.messages.ContainerMetadata;
-
-    // document.getElementById("text8").innerHTML = cast.framework.messages.MediaMetadata;
-
-    // document.getElementById("text9").innerHTML = cast.framework.messages.MediaInformation;
-
-    // document.getElementById("text10").innerHTML = cast.framework.messages.MediaInformation;
-
-    // document.getElementById("text11").innerHTML = cast.framework.messages.MediaInformation;
-
-    // document.getElementById("text12").innerHTML = cast.framework.messages.MediaInformation;
+    // document.getElementById("text6").innerHTML = 
+    // document.getElementById("text7").innerHTML = 
+    // document.getElementById("text8").innerHTML = 
+    // document.getElementById("text9").innerHTML = 
+    // document.getElementById("text10").innerHTML = 
+    // document.getElementById("text11").innerHTML = 
+    // document.getElementById("text12").innerHTML = 
 
 
   </script>
