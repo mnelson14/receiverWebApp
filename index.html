@@ -7,7 +7,7 @@
 <body>
   <!-- <cast-media-player></cast-media-player> -->
 <!--   <video id="video1" width="320" height="240" autoplay>
-  	<source src="https://ia800600.us.archive.org/18/items/3.FranceFalls/3.%20France%20Falls.mp4" type="video/mp4">
+  	<source src="" type="video/mp4">
   </video> -->
   <p id="text1" style="color:red;"></p>
   <p id="text2" style="color:red;"></p>
@@ -20,7 +20,7 @@
   <p id="text9" style="color:red;"></p>
   <p id="text10" style="color:red;"></p>
   <p id="text11" style="color:red;"></p>
-  <p id="text12" style="color:red;"></p>
+  <p id="text12" style="color:red;"></p>  
 
 
 
@@ -29,6 +29,7 @@
   <script>
 
 	var elem = document.getElementById("video1");
+  var holdingURL = "";
 
 	function openFullscreen() {
 	if (elem.requestFullscreen) {
@@ -44,19 +45,40 @@
   const context = cast.framework.CastReceiverContext.getInstance();
   const options = new cast.framework.CastReceiverOptions();
 
+  const playerManager = context.getPlayerManager();
+
+  playerManager.setMessageInterceptor(
+    cast.framework.messages.MessageType.LOAD, loadRequestData => {
+      
+
+      if (!loadRequestData.media.entity) {
+        // Copy the value from contentId for legacy reasons if needed
+        loadRequestData.media.entity = loadRequestData.media.contentId;
+      }
+
+      return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
+                                          loadRequestData.credentials)
+        .then(asset => {
+          loadRequestData.media.contentUrl = asset.url;
+          holdingURL = asset.url;
+          
+          return loadRequestData;
+        }); 
+  }); 
+
 
 
 	// openFullscreen();	
 
-    // cast.framework.CastReceiverContext.getInstance().start();
+    cast.framework.CastReceiverContext.getInstance().start();
 
     document.getElementById("text1").innerHTML = options;
 
-    // document.getElementById("text2").innerHTML = cast.framework.NetworkRequestInfo.url;
+    document.getElementById("text2").innerHTML = cast.framework.messages.LoadRequestData.customData;
 
-    // document.getElementById("text3").innerHTML = cast.framework.messages.MediaInformation.contentUrl;
+    document.getElementById("text3").innerHTML = cast.framework.playerManager.getMediaInformation();
 
-    // document.getElementById("text4").innerHTML = cast.framework.CastReceiverContext.getInstance();
+    document.getElementById("text4").innerHTML = holdingURL;
 
     // document.getElementById("text5").innerHTML = cast.framework.CastReceiverContext;
 
