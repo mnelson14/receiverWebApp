@@ -29,7 +29,7 @@
   <script>
 
 	var elem = document.getElementById("video1");
-  var holdingURL = "";
+  var holdingURL = "holdingURL";
 
 	function openFullscreen() {
 	if (elem.requestFullscreen) {
@@ -80,7 +80,7 @@
 
     document.getElementById("text4").innerHTML = holdingURL;
 
-    // document.getElementById("text5").innerHTML = cast.framework.CastReceiverContext;
+    document.getElementById("text5").innerHTML = cast.framework.playerManager.getMediaInformation().contentUrl;
 
     // document.getElementById("text6").innerHTML = cast.framework.messages;
 
