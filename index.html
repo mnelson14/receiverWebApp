@@ -5,57 +5,9 @@
   </script>
 </head>
 <body>
-  <p id="text1" style="color:red;"></p>
-  <!-- <p id="text2" style="color:red;"></p> -->
-
-  <video id="video" width="320" height="240">
-
-
-  <!-- <cast-media-player></cast-media-player> -->
+  <cast-media-player></cast-media-player>
   <script>
-
-  	const context = cast.framework.CastReceiverContext.getInstance();
-	  const playerManager = context.getPlayerManager();
-
-  	playerManager.addEventListener(
-  	  cast.framework.events.EventType.LOADED_METADATA, (event) => {
-
-  	  	// event.mediaStatus.media.contentId;
-  	    // event.mediaStatus.media.contentUrl;
-  	    // event.mediaStatus.media.customData;
-
-  	    document.getElementById("text1").innerHTML = event.mediaStatus.media.contentUrl;
-
-  	    var video = document.getElementById('video');
-  	    var source = document.createElement('source');
-
-  	    source.setAttribute('src', event.mediaStatus.media.contentUrl);
-
-  	    var vContentUrl = event.mediaStatus.media.contentUrl;
-
-  	    source.setAttribute('type', 'video/mp4');
-
-
-  	    if (vContentUrl.includes('.m3u8')) {
-	  	    source.setAttribute('type', 'application/x-mpegURL');
-  	    }
-
-
-
-  	    video.appendChild(source);
-
-  	    // playerManager.stop();
-
-  	    video.load();
-  	    video.play();
-
-
-
-
-  	});
-
-    context.start();
-
+    cast.framework.CastReceiverContext.getInstance().start();
   </script>
 </body>
 </html>
