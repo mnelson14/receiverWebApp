@@ -8,7 +8,7 @@
   <p id="text1" style="color:red;"></p>
   <!-- <p id="text2" style="color:red;"></p> -->
 
-  <video id="video" width="320" height="240"></video>
+  <video id="video"></video>
 
 
   <!-- <cast-media-player></cast-media-player> -->
@@ -18,7 +18,7 @@
 	  const playerManager = context.getPlayerManager();
 
   	playerManager.addEventListener(
-  	  cast.framework.events.EventType.PLAYER_LOAD_COMPLETE, (event) => {
+  	  cast.framework.events.EventType.LOADED_METADATA, (event) => {
 
   	  	// event.mediaStatus.media.contentId;
   	    // event.mediaStatus.media.contentUrl;
