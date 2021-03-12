@@ -6,9 +6,9 @@
 </head>
 <body>
   <p id="text1" style="color:red;"></p>
-  <p id="text2" style="color:red;"></p>
+  <!-- <p id="text2" style="color:red;"></p> -->
 
-  <video id="video" width="320" height="240"></video>
+  <video id="video"></video>
 
 
   <!-- <cast-media-player></cast-media-player> -->
@@ -18,14 +18,13 @@
 	  const playerManager = context.getPlayerManager();
 
   	playerManager.addEventListener(
-  	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+  	  cast.framework.events.EventType.PLAYER_LOAD_COMPLETE, (event) => {
 
   	  	// event.mediaStatus.media.contentId;
   	    // event.mediaStatus.media.contentUrl;
   	    // event.mediaStatus.media.customData;
 
-  	    // document.getElementById("text1").innerHTML = event.mediaStatus.media.contentId;
-  	    document.getElementById("text2").innerHTML = event.mediaStatus.media.contentUrl;
+  	    document.getElementById("text1").innerHTML = event.mediaStatus.media.contentUrl;
 
   	    var video = document.getElementById('video');
   	    var source = document.createElement('source');
