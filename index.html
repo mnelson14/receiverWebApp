@@ -15,7 +15,7 @@
   <script>
 
   	const context = cast.framework.CastReceiverContext.getInstance();
-	const playerManager = context.getPlayerManager();
+	  const playerManager = context.getPlayerManager();
 
   	playerManager.addEventListener(
   	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
@@ -31,8 +31,12 @@
   	    var source = document.createElement('source');
 
   	    source.setAttribute('src', event.mediaStatus.media.contentUrl);
+  	    source.setAttribute('type', 'application/x-mpegURL');
+
 
   	    video.appendChild(source);
+
+  	    // playerManager.stop();
 
   	    video.load();
   	    video.play();
