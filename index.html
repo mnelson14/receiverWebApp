@@ -31,7 +31,16 @@
   	    var source = document.createElement('source');
 
   	    source.setAttribute('src', event.mediaStatus.media.contentUrl);
-  	    source.setAttribute('type', 'application/x-mpegURL');
+
+  	    var vContentUrl = event.mediaStatus.media.contentUrl;
+
+  	    source.setAttribute('type', 'video/mp4');
+
+
+  	    if (vContentUrl.includes('.m3u8')) {
+	  	    source.setAttribute('type', 'application/x-mpegURL');
+  	    }
+
 
 
   	    video.appendChild(source);
