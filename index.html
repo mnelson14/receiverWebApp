@@ -6,10 +6,9 @@
 </head>
 <body>
    <p id="text1" style="color:red;"></p>
-   <p id="text2" style="color:red;"></p>
+   <p id="text2" style="color:yellow;"></p>
 
    <video id="video" width="320" height="240"></video>
-
 
    <!-- <cast-media-player></cast-media-player> -->
    <script>
@@ -23,13 +22,13 @@
         // event.mediaStatus.media.contentUrl;
         // event.mediaStatus.media.customData;
 
-        // document.getElementById("text1").innerHTML = event.mediaStatus.media.contentId;
-        document.getElementById("text2").innerHTML = event.mediaStatus.media.contentUrl;
+        document.getElementById("text1").innerHTML = event.mediaStatus.media.contentUrl;
 
         var video = document.getElementById('video');
         var source = document.createElement('source');
 
         source.setAttribute('src', event.mediaStatus.media.contentUrl);
+
 
         var vContentUrl = event.mediaStatus.media.contentUrl;
 
@@ -45,8 +44,23 @@
         video.load();
         video.play();
 
+        // video.requestFullscreen(); 
 
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        }
+        else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+        }
+        
+        
+    });
 
+    // second listener 
+    playerManager.addEventListener(
+      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+
+        document.getElementById("text2").innerHTML = event.mediaStatus.media.contentUrl;
 
     });
 
