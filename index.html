@@ -6,63 +6,49 @@
 </head>
 <body>
    <!-- <p id="text1" style="color:red;"></p> -->
-   <!-- <p id="text2" style="color:yellow;"></p> -->
+   <p id="text2" style="color:yellow;"></p>
 
-   <video></video>
+   <video id="video1"></video>
 
-   <!-- <cast-media-player></cast-media-player> -->
+   <cast-media-player></cast-media-player>
    <script>
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
 
-    // playerManager.addEventListener(
-    //   cast.framework.events.EventType.MEDIA_STATUS, (event) => {
-    //     // event.mediaStatus.media.contentId;
-    //     // event.mediaStatus.media.contentUrl;
-    //     // event.mediaStatus.media.customData;
-
-    //     document.getElementById("text1").innerHTML = event.mediaStatus.media.contentUrl;
-
-    //     var video = document.getElementById('video');
-    //     var source = document.createElement('source');
-
-    //     source.setAttribute('src', event.mediaStatus.media.contentUrl);
+    var urlHolder = "";
 
 
-    //     var vContentUrl = event.mediaStatus.media.contentUrl;
+    playerManager.addEventListener(
+      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-    //     source.setAttribute('type', 'video/mp4');
+        urlHolder = event.mediaStatus.media.contentUrl;
 
-    //     if (vContentUrl.includes('.m3u8')) {
-    //       source.setAttribute('type', 'application/x-mpegURL');
-    //     }
-
-
-    //     video.appendChild(source);
-
-    //     video.load();
-    //     video.play();
-
-    //     // video.requestFullscreen(); 
-
-    //     if (video.requestFullscreen) {
-    //         video.requestFullscreen();
-    //     }
-    //     else if (video.webkitRequestFullscreen) {
-    //         video.webkitRequestFullscreen();
-    //     }
-
-
-    // });
+    });
 
     // second listener 
-    // playerManager.addEventListener(
-    //   cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+    playerManager.addEventListener(
+      cast.framework.events.EventType.ERROR, (event) => {
 
-    //     document.getElementById("text2").innerHTML = event.mediaStatus.media.contentUrl;
+        document.getElementById("text2").innerHTML = urlHolder
 
-    // });
+        var video = document.getElementById('video1');
+
+        var source = document.createElement('source');
+
+        source.setAttribute('src', urlHolder);
+
+        source.setAttribute('type', 'video/mp4');
+
+        if (urlHolder.includes('.m3u8')) {
+          source.setAttribute('type', 'application/x-mpegURL');
+        }
+
+        video.appendChild(source);
+
+        video.load();
+        video.play();
+    });
 
     context.start();
   </script>
