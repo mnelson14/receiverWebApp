@@ -16,13 +16,16 @@
 
 </head>
 <body>
-   <!-- <p id="text1" style="color:red;"></p> -->
-   <!-- <p id="text2" style="color:yellow;"></p> -->
+   <p id="text1" style="color:red;"></p>
+   <p id="text2" style="color:yellow;"></p>
+
 
    <video id="video1"></video>
 
 <!--    <cast-media-player></cast-media-player> -->
    <script>
+
+    // request.media.contentType = 'application/x-mpegurl';
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
@@ -33,32 +36,20 @@
     playerManager.addEventListener(
       cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-        urlHolder = event.mediaStatus.media.contentUrl;
-
-        var video = document.getElementById('video1');
-
-        var source = document.createElement('source');
-
-        source.setAttribute('src', urlHolder);
-
-        source.setAttribute('type', 'video/mp4');
-
-        if (urlHolder.includes('m3u8')) {
-          source.setAttribute('type', 'application/x-mpegURL');
-        }
-
-        video.appendChild(source);
+        document.getElementById("text1").innerHTML = event.mediaStatus.media.contentUrl;
 
     });
 
-    // second listener 
-    playerManager.addEventListener(
-      cast.framework.events.EventType.ERROR, (event) => {
+    player.setMessageInterceptor(
+      cast.framework.messages.MessageType.LOAD,
+      request => {
+        console.log(request.media.contentId);
 
-        // document.getElementById("text2").innerHTML = urlHolder
+        urlHolder = request.media.contentUrl;
+
+        document.getElementById("text2").innerHTML = urlHolder;
 
         var video = document.getElementById('video1');
-
         var source = document.createElement('source');
 
         source.setAttribute('src', urlHolder);
@@ -73,7 +64,10 @@
 
         video.load();
         video.play();
-    });
+
+        return null;
+      }
+    ); 
 
     context.start();
   </script>
