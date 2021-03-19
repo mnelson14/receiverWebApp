@@ -7,7 +7,32 @@
 <body>
   <video id="player"></video>
   <script>
-    cast.framework.CastReceiverContext.getInstance().start();
+
+  	const context = cast.framework.CastReceiverContext.getInstance();
+  	const playerManager = context.getPlayerManager();
+
+  	playerManager.addEventListener(
+  	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+
+  	    var urlHolder = event.mediaStatus.media.contentUrl;
+
+        var video = document.getElementById('player');
+
+        var source = document.createElement('source');
+
+        source.setAttribute('type', 'video/mp4');
+
+        if (urlHolder.includes('.m3u8')) {
+          source.setAttribute('type', 'application/x-mpegURL');
+        }
+
+        video.appendChild(source);
+
+  	});
+
+
+    context.start();
+    
   </script>
 </body>
 </html>
