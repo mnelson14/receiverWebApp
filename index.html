@@ -10,7 +10,7 @@
 
    <video id="video1"></video>
 
-<!--    <cast-media-player></cast-media-player> -->
+   <cast-media-player id="player"></cast-media-player>
    <script>
     
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -41,6 +41,9 @@
       cast.framework.events.EventType.ERROR, (event) => {
 
         // document.getElementById("text2").innerHTML = urlHolder
+        var player = document.getElementById('player');
+        player.style.visibility = "hidden";
+
 
         var video = document.getElementById('video1');
 
