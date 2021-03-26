@@ -5,9 +5,65 @@
   </script>
 </head>
 <body>
-  <cast-media-player></cast-media-player>
-  <script>
-    cast.framework.CastReceiverContext.getInstance().start();
+   <!-- <p id="text1" style="color:red;"></p> -->
+   <!-- <p id="text2" style="color:yellow;"></p> -->
+
+   <video id="video1"></video>
+
+   <cast-media-player></cast-media-player>
+   <script>
+    
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const playerManager = context.getPlayerManager();
+
+    var urlHolder = "";
+
+    playerManager.addEventListener(
+      cast.framework.events.EventType.LOAD_START, (event) => {
+
+        var video = document.getElementById('video1');
+
+        video.style.width = null;
+        video.style.hegiht = null;
+
+    });
+
+
+    playerManager.addEventListener(
+      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+
+        urlHolder = event.mediaStatus.media.contentUrl;
+
+    });
+
+    // second listener 
+    playerManager.addEventListener(
+      cast.framework.events.EventType.ERROR, (event) => {
+
+        // document.getElementById("text2").innerHTML = urlHolder
+
+        var video = document.getElementById('video1');
+
+        video.style.width = "100%";
+        video.style.hegiht = "100%";
+
+        var source = document.createElement('source');
+
+        source.setAttribute('src', urlHolder);
+
+        if (urlHolder.includes('.mp4')) {
+          source.setAttribute('type', 'video/mp4');
+        } else {
+          source.setAttribute('type', 'application/x-mpegURL');
+        }
+
+        video.appendChild(source);
+
+        video.load();
+        video.play();
+    });
+
+    context.start();
   </script>
 </body>
 </html>
