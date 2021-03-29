@@ -46,8 +46,6 @@
 
         urlHolder = request.media.contentUrl;
 
-        document.getElementById("text2").innerHTML = urlHolder;
-
         var video = document.getElementById('video');
         var source = document.createElement('source');
 
@@ -55,8 +53,8 @@
 
         source.setAttribute('type', 'video/mp4');
 
-        if (urlHolder.includes('m3u8')) {
-          source.setAttribute('type', 'application/x-mpegURL');
+        if (urlHolder.includes('.m3u8')) {
+          source.setAttribute('type', 'application/x-mpegurl');
         }
 
         video.appendChild(source);
