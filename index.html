@@ -4,7 +4,7 @@
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
   </script>
 
-  <script src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="//cdn.jsdelivr.net/npm/hls.js"></script>
 
 </head>
 <body>
@@ -60,11 +60,6 @@
         hls.on(Hls.Events.MEDIA_ATTACHED, function () {
           console.log('video and hls.js are now bound together !');
           hls.loadSource(url);
-          hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-            console.log(
-              'manifest loaded, found ' + data.levels.length + ' quality level'
-            );
-          });
         });
       }
     }
