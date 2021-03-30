@@ -3,9 +3,6 @@
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
   </script>
-
-  <script src="//cdn.jsdelivr.net/npm/hls.js"></script>
-
 </head>
 <body>
 
@@ -31,7 +28,6 @@
         source1.setAttribute('type', 'video/mp4');
       } else {
         source1.setAttribute('type', 'application/x-mpegurl');
-        hlsFunctions(url);
       }
 
     }
@@ -49,19 +45,6 @@
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
-    }
-
-    function hlsFunctions(url) {
-      if (Hls.isSupported()) {
-        var video = document.getElementById('video1');
-        var hls = new Hls();
-        // bind them together
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-          console.log('video and hls.js are now bound together !');
-          hls.loadSource(url);
-        });
-      }
     }
 
     playerManager.addEventListener(
