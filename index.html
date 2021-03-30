@@ -44,6 +44,11 @@
       video.play();
     }
 
+    function hideCMP() {
+      var player = document.getElementById('player');
+      player.style.display = "none";
+    }
+
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
 
@@ -60,6 +65,9 @@
           changeSource(urlHolder);
 
           videoFullScreenPlay();
+
+          hideCMP();
+
         }
 
     });
@@ -71,9 +79,6 @@
     });
 
     context.start();
-
-    var player = document.getElementById('player');
-    player.style.display = "none";
 
   </script>
 </body>
