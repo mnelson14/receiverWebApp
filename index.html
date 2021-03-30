@@ -15,6 +15,7 @@
 
     var urlHolder = "";
 
+
     function changeSource(url) {
       var source1 = document.getElementById('source1');
       source1.setAttribute('src', url);
@@ -27,6 +28,7 @@
 
     }
 
+
     function videoFullScreenPlay() {
       var video = document.getElementById('video1');
       
@@ -37,16 +39,17 @@
       video.play();
     }
 
+
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
 
-      var cme = document.getElementById('castMediaElement');
-      cme.remove();
+      document.getElementById('castMediaElement').id = 'oldCastMediaElement';
 
       document.getElementById('video1').id = 'castMediaElement';
 
     }
+
 
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
