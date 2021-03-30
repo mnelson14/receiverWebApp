@@ -5,13 +5,7 @@
   </script>
 </head>
 <body>
-
-   <video id="video1">
-     <source id="source1" 
-             src="" 
-             type="">
-   </video>
-
+   <video id="video1"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     
@@ -35,8 +29,7 @@
     function videoFullScreenPlay() {
       var video = document.getElementById('video1');
 
-      video.style.width = "100%";
-      video.style.hegiht = "100%";
+      video.style.height = "100%";
 
       video.load();
       video.play();
