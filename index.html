@@ -1,0 +1,22 @@
+<html>
+<head>
+  <script type="text/javascript"
+      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
+</head>
+<body>
+
+   <video id="video1">
+     <source id="source1" 
+             src="" 
+             type="">
+   </video>
+
+   <cast-media-player id="player"></cast-media-player>
+   <script>
+    function makeNoteDom(a,b,c){var d=document.createElement("div");a=document.createTextNode(a);d.appendChild(a);a=document.createElement("div");b=document.createTextNode(b);a.appendChild(b);b=document.createElement("div");b.appendChild(d);b.appendChild(a);c.appendChild(b)}function makeNotes(a,b){for(var c=0;c<a.length;c++)makeNoteDom(a[c].title,a[c].content,b)}
+    function main(){var a=document.getElementById("notes");makeNotes([{title:"Note 1",content:"Content of Note 1"},{title:"Note 2",content:"Content of Note 2"}],a)}main();var context=cast.framework.CastReceiverContext.getInstance(),playerManager=context.getPlayerManager(),urlHolder="";function changeSource(a){var b=document.getElementById("source1");b.setAttribute("src",a);a.includes(".mp4")?b.setAttribute("type","video/mp4"):b.setAttribute("type","application/x-mpegurl")}function videoFullScreenPlay(){var a=document.getElementById("video1");a.style.width="100%";a.style.hegiht="100%";a.load();a.play()}
+    function hideCMP(){document.getElementById("player").style.display="none"}playerManager.addEventListener(cast.framework.events.EventType.LOAD_START,function(a){});playerManager.addEventListener(cast.framework.events.EventType.MEDIA_STATUS,function(a){urlHolder!=a.mediaStatus.media.contentUrl&&(urlHolder=a.mediaStatus.media.contentUrl,changeSource(urlHolder),videoFullScreenPlay(),hideCMP())});playerManager.addEventListener(cast.framework.events.EventType.ERROR,function(a){});context.start();
+  </script>
+</body>
+</html>
