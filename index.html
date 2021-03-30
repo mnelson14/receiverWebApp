@@ -8,7 +8,11 @@
    <!-- <p id="text1" style="color:red;"></p> -->
    <!-- <p id="text2" style="color:yellow;"></p> -->
 
-   <video id="video1"></video>
+   <video id="video1">
+     <source id="source1" 
+             src="" 
+             type="">
+   </video>
 
    <cast-media-player id="player"></cast-media-player>
    <script>
@@ -18,13 +22,30 @@
 
     var urlHolder = "";
 
+    function changeSource(url) {
+      var source1 = document.getElementById('source1');
+      source1.setAttribute('src', url);
+
+      if (url.includes('.mp4')) {
+        source1.setAttribute('type', 'video/mp4');
+      } else {
+        source1.setAttribute('type', 'application/x-mpegurl');
+      }
+
+    }
+
+    function videoFullScreenPlay() {
+      var video = document.getElementById('video1');
+
+      video.style.width = "100%";
+      video.style.hegiht = "100%";
+
+      video.load();
+      video.play();
+    }
+
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
-
-        // var video = document.getElementById('video1');
-
-        // video.style.width = null;
-        // video.style.hegiht = null;
 
     });
 
@@ -32,7 +53,14 @@
     playerManager.addEventListener(
       cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-        urlHolder = event.mediaStatus.media.contentUrl;
+        if (urlHolder != event.mediaStatus.media.contentUrl) {
+
+          urlHolder = event.mediaStatus.media.contentUrl;
+
+          changeSource(urlHolder);
+
+          videoFullScreenPlay();
+        }
 
     });
 
@@ -40,33 +68,12 @@
     playerManager.addEventListener(
       cast.framework.events.EventType.ERROR, (event) => {
 
-        // document.getElementById("text2").innerHTML = urlHolder
-
-        var video = document.getElementById('video1');
-
-        video.style.width = "100%";
-        video.style.hegiht = "100%";
-
-        var source = document.createElement('source');
-
-        source.setAttribute('src', urlHolder);
-
-        if (urlHolder.includes('.mp4')) {
-          source.setAttribute('type', 'video/mp4');
-        } else {
-          source.setAttribute('type', 'application/x-mpegurl');
-        }
-
-        video.appendChild(source);
-
-        video.load();
-        video.play();
     });
 
     context.start();
 
-    var player = document.getElementById('player');
-    player.style.display = "none";
+    // var player = document.getElementById('player');
+    // player.style.display = "none";
 
   </script>
 </body>
