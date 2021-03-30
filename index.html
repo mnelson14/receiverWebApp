@@ -40,6 +40,12 @@
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
+
+      var cme = document.getElementById('castMediaElement');
+      cme.remove();
+
+      document.getElementById('video1').id = 'castMediaElement';
+
     }
 
     playerManager.addEventListener(
