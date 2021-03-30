@@ -3,10 +3,11 @@
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
   </script>
+
+  <script src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 </head>
 <body>
-   <!-- <p id="text1" style="color:red;"></p> -->
-   <!-- <p id="text2" style="color:yellow;"></p> -->
 
    <video id="video1">
      <source id="source1" 
@@ -30,6 +31,7 @@
         source1.setAttribute('type', 'video/mp4');
       } else {
         source1.setAttribute('type', 'application/x-mpegurl');
+        hlsFunctions(url);
       }
 
     }
@@ -47,6 +49,24 @@
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
+    }
+
+    function hlsFunctions(url) {
+      if (Hls.isSupported()) {
+        var video = document.getElementById('video1');
+        var hls = new Hls();
+        // bind them together
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+          console.log('video and hls.js are now bound together !');
+          hls.loadSource(url);
+          hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+            console.log(
+              'manifest loaded, found ' + data.levels.length + ' quality level'
+            );
+          });
+        });
+      }
     }
 
     playerManager.addEventListener(
