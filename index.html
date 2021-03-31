@@ -36,6 +36,17 @@
       video.play();
     }
 
+    function videoPlay() {
+      var video = document.getElementById('video1');
+      video.play();
+
+    }
+
+    function videoPause() {
+      var video = document.getElementById('video1');
+      video.pause();
+    }
+
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
@@ -68,6 +79,17 @@
     playerManager.addEventListener(
       cast.framework.events.EventType.ERROR, (event) => {
 
+    });
+
+
+    playerManager.addEventListener(
+      cast.framework.events.EventType.REQUEST_PAUSE, (event) => {
+        videoPause();
+    });
+
+    playerManager.addEventListener(
+      cast.framework.events.EventType.REQUEST_PLAY, (event) => {
+        videoPlay();
     });
 
 
