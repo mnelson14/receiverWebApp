@@ -64,7 +64,7 @@
     }
 
 
-    player.setMessageInterceptor(
+    playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.PLAY,
       request => {
         videoPlay();
@@ -72,7 +72,7 @@
       }
     );
 
-    player.setMessageInterceptor(
+    playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.PAUSE,
       request => {
         videoPause();
