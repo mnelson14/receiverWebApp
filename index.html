@@ -46,6 +46,18 @@
       video.pause();
     }
 
+    function videoFF() {
+      var video = document.getElementById('video1');
+      var currentTime = video.currentTime;
+      video.currentTime = currentTime + 15;
+    }
+
+    function videoRR() {
+      var video = document.getElementById('video1');
+      var currentTime = video.currentTime;
+      video.currentTime = currentTime - 15;
+    }
+
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
@@ -54,7 +66,8 @@
 
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
-
+        console.log("LOAD_START");
+        console.log(event);
     });
 
 
@@ -81,8 +94,6 @@
         console.log("ERROR");
         console.log(event);
     });
-
-
 
     playerManager.addEventListener(
       cast.framework.events.category.CORE, event => {
