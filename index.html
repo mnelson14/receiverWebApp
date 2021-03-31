@@ -6,8 +6,8 @@
 </head>
 <body>
   <!-- class="mediaElement" id="castMediaElement" -->
-   <video controls autoplay id="castMediaElement" class="mediaElement"><source id="source1" src="" type=""></video>
-   <cast-media-player id="player"></cast-media-player>
+   <video controls autoplay id="player" class="mediaElement"><source id="source1" src="" type=""></video>
+   <cast-media-player id="cmp"></cast-media-player>
    <script>
     
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -30,7 +30,7 @@
 
 
     function videoFullScreenPlay() {
-      var video = document.getElementById('castMediaElement');
+      var video = document.getElementById('player');
       
       video.style.width  = "100%";
       video.style.height = "100%";
@@ -41,8 +41,8 @@
 
 
     function hideCMP() {
-      var player = document.getElementById('player');
-      player.style.display = "none";
+      var cmp = document.getElementById('cmp');
+      cmp.style.display = "none";
     }
 
 
