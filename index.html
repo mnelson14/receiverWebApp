@@ -6,7 +6,7 @@
 </head>
 <body>
   <!-- class="mediaElement" id="castMediaElement" -->
-   <video controls autoplay id="video1" class="mediaElement"><source id="source1" src="" type=""></video>
+   <video controls autoplay id="castMediaElement" class="mediaElement"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     
@@ -30,7 +30,7 @@
 
 
     function videoFullScreenPlay() {
-      var video = document.getElementById('video1');
+      var video = document.getElementById('castMediaElement');
       
       video.style.width  = "100%";
       video.style.height = "100%";
@@ -43,11 +43,6 @@
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
-
-      document.getElementById('castMediaElement').id = 'oldCastMediaElement';
-
-      document.getElementById('video1').id = 'castMediaElement';
-
     }
 
 
