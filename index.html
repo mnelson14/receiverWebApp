@@ -79,7 +79,8 @@
 
     playerManager.addEventListener(
       cast.framework.events.EventType.ERROR, (event) => {
-
+        console.log("ERROR");
+        console.log(event);
     });
 
 
@@ -87,6 +88,12 @@
     playerManager.addEventListener(
       cast.framework.events.category.CORE, event => {
         console.log("CORE");
+        console.log(event);
+    });
+
+    playerManager.addEventListener(
+      cast.framework.events.category.DEBUG, event => {
+        console.log("DEBUG");
         console.log(event);
     });
 
