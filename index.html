@@ -5,35 +5,29 @@
   </script>
 </head>
 <body>
-  <!-- class="mediaElement" id="castMediaElement" -->
-   <video controls autoplay id="player" class="mediaElement"><source id="source1" src="" type=""></video>
-   <cast-media-player id="cmp"></cast-media-player>
+   <video id="video1"><source id="source1" src="" type=""></video>
+   <cast-media-player id="player"></cast-media-player>
    <script>
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
-    
+
     var urlHolder = "";
 
-
     function changeSource(url) {
+      var source1 = document.getElementById('source1');
+      source1.setAttribute('src', url);
 
-    	window.location.href = url;
-
-      // var source1 = document.getElementById('source1');
-      // source1.setAttribute('src', url);
-
-      // if (url.includes('.mp4')) {
-      //   source1.setAttribute('type', 'video/mp4');
-      // } else {
-      //   source1.setAttribute('type', 'application/x-mpegurl');
-      // }
+      if (url.includes('.mp4')) {
+        source1.setAttribute('type', 'video/mp4');
+      } else {
+        source1.setAttribute('type', 'application/x-mpegurl');
+      }
 
     }
 
-
     function videoFullScreenPlay() {
-      var video = document.getElementById('player');
+      var video = document.getElementById('video1');
       
       video.style.width  = "100%";
       video.style.height = "100%";
@@ -42,12 +36,10 @@
       video.play();
     }
 
-
     function hideCMP() {
-      var cmp = document.getElementById('cmp');
-      cmp.style.display = "none";
+      var player = document.getElementById('player');
+      player.style.display = "none";
     }
-
 
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
