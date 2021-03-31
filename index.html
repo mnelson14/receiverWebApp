@@ -70,6 +70,25 @@
 
     });
 
+
+    playerManager.addEventListener(
+      cast.framework.events.category.CORE, event => {
+        console.log("CORE");
+        console.log(event);
+    });
+
+    playerManager.addEventListener(
+      cast.framework.events.category.FINE, event => {
+        console.log("FINE");
+        console.log(event);
+    });
+
+    playerManager.addEventListener(
+      cast.framework.events.category.REQUEST, event => {
+        console.log("REQUEST");
+        console.log(event);
+    });
+
     context.start();
 
   </script>
