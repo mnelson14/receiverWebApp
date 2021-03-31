@@ -5,7 +5,7 @@
   </script>
 </head>
 <body>
-   <video id="video1"><source id="source1" src="" type=""></video>
+   <video id="video1" controls><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     
@@ -52,6 +52,7 @@
       player.style.display = "none";
     }
 
+
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
 
@@ -82,16 +83,6 @@
     });
 
 
-    playerManager.addEventListener(
-      cast.framework.events.EventType.REQUEST_PAUSE, (event) => {
-        videoPause();
-    });
-
-    playerManager.addEventListener(
-      cast.framework.events.EventType.REQUEST_PLAY, (event) => {
-        videoPlay();
-    });
-
 
     playerManager.addEventListener(
       cast.framework.events.category.CORE, event => {
@@ -110,6 +101,7 @@
         console.log("REQUEST");
         console.log(event);
     });
+
 
     context.start();
 
