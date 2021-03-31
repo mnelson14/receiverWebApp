@@ -64,6 +64,23 @@
     }
 
 
+    player.setMessageInterceptor(
+      cast.framework.messages.MessageType.PLAY,
+      request => {
+        videoPlay();
+        return request;
+      }
+    );
+
+    player.setMessageInterceptor(
+      cast.framework.messages.MessageType.PAUSE,
+      request => {
+        videoPause();
+        return request;
+      }
+    );
+
+
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
         console.log("LOAD_START");
@@ -83,9 +100,7 @@
           videoFullScreenPlay();
 
           hideCMP();
-
         }
-
     });
 
 
