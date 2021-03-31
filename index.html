@@ -12,19 +12,22 @@
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
-
+    
     var urlHolder = "";
 
 
     function changeSource(url) {
-      var source1 = document.getElementById('source1');
-      source1.setAttribute('src', url);
 
-      if (url.includes('.mp4')) {
-        source1.setAttribute('type', 'video/mp4');
-      } else {
-        source1.setAttribute('type', 'application/x-mpegurl');
-      }
+    	window.location.href = url;
+
+      // var source1 = document.getElementById('source1');
+      // source1.setAttribute('src', url);
+
+      // if (url.includes('.mp4')) {
+      //   source1.setAttribute('type', 'video/mp4');
+      // } else {
+      //   source1.setAttribute('type', 'application/x-mpegurl');
+      // }
 
     }
 
