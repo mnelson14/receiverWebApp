@@ -86,6 +86,15 @@
       cast.framework.messages.MessageType.SEEK,
       request => {
         var time = request.seekData.relativeTime;
+
+        if (time > 0) {
+          videoFF();
+        } 
+
+        if (time < 0) {
+          videoRR();
+        }
+
         console.log("SEEK");
         console.log(request);
         return request;
