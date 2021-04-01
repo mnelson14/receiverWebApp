@@ -1,8 +1,8 @@
 <html>
 <head>
-  <script type="text/javascript"
-      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
-  </script>
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <script src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
+
 </head>
 <body>
    <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
@@ -11,6 +11,12 @@
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
+    // Debug Logger
+    const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+    const LOG_TAG = 'MyAPP.LOG';
+    // Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
+    castDebugLogger.setEnabled(true);
+
 
     var urlHolder = "";
 
