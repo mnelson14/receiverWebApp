@@ -5,7 +5,7 @@
   </script>
 </head>
 <body>
-   <video id="video1" controls><source id="source1" src="" type=""></video>
+   <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     
@@ -82,24 +82,24 @@
       }
     );
 
-    playerManager.setMessageInterceptor(
-      cast.framework.messages.MessageType.SEEK,
-      request => {
-        var time = request.seekData.relativeTime;
+    // playerManager.setMessageInterceptor(
+    //   cast.framework.messages.MessageType.SEEK,
+    //   request => {
+    //     var time = request.seekData.relativeTime;
 
-        if (time > 0) {
-          videoFF();
-        } 
+    //     if (time > 0) {
+    //       videoFF();
+    //     } 
 
-        if (time < 0) {
-          videoRR();
-        }
+    //     if (time < 0) {
+    //       videoRR();
+    //     }
 
-        console.log("SEEK");
-        console.log(request);
-        return request;
-      }
-    );
+    //     console.log("SEEK");
+    //     console.log(request);
+    //     return request;
+    //   }
+    // );
 
 
     playerManager.addEventListener(
