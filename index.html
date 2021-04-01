@@ -67,6 +67,7 @@
     playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.PLAY,
       request => {
+        console.log("PLAY");
         videoPlay();
         return request;
       }
@@ -75,7 +76,18 @@
     playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.PAUSE,
       request => {
+        console.log("PAUSE");
         videoPause();
+        return request;
+      }
+    );
+
+    playerManager.setMessageInterceptor(
+      cast.framework.messages.MessageType.SEEK,
+      request => {
+        var time = request.seekData.relativeTime;
+        console.log("SEEK");
+        console.log(request);
         return request;
       }
     );
