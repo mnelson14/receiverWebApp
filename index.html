@@ -7,15 +7,19 @@
    <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
-   	
+
    	// DEBUGGING 
    	const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
    	// Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
    	castDebugLogger.setEnabled(true);
 
    	castDebugLogger.loggerLevelByEvents = {
-   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.INFO,
-   	  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG
+   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.category.REQUEST': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.EventType.ERROR': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.category.DEBUG': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.category.FINE': cast.framework.LoggerLevel.DEBUG
    	}
 
    	castDebugLogger.showDebugLogs(true);
@@ -137,35 +141,35 @@
     });
 
 
-    playerManager.addEventListener(
-      cast.framework.events.EventType.ERROR, (event) => {
-        console.log("ERROR");
-        console.log(event);
-    });
+    // playerManager.addEventListener(
+    //   cast.framework.events.EventType.ERROR, (event) => {
+    //     console.log("ERROR");
+    //     console.log(event);
+    // });
 
-    playerManager.addEventListener(
-      cast.framework.events.category.CORE, event => {
-        console.log("CORE");
-        console.log(event);
-    });
+    // playerManager.addEventListener(
+    //   cast.framework.events.category.CORE, event => {
+    //     console.log("CORE");
+    //     console.log(event);
+    // });
 
-    playerManager.addEventListener(
-      cast.framework.events.category.DEBUG, event => {
-        console.log("DEBUG");
-        console.log(event);
-    });
+    // playerManager.addEventListener(
+    //   cast.framework.events.category.DEBUG, event => {
+    //     console.log("DEBUG");
+    //     console.log(event);
+    // });
 
-    playerManager.addEventListener(
-      cast.framework.events.category.FINE, event => {
-        console.log("FINE");
-        console.log(event);
-    });
+    // playerManager.addEventListener(
+    //   cast.framework.events.category.FINE, event => {
+    //     console.log("FINE");
+    //     console.log(event);
+    // });
 
-    playerManager.addEventListener(
-      cast.framework.events.category.REQUEST, event => {
-        console.log("REQUEST");
-        console.log(event);
-    });
+    // playerManager.addEventListener(
+    //   cast.framework.events.category.REQUEST, event => {
+    //     console.log("REQUEST");
+    //     console.log(event);
+    // });
 
 
     context.start();
