@@ -1,11 +1,25 @@
 <html>
 <head>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <script src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
 </head>
 <body>
    <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
+   	
+   	// DEBUGGING 
+   	const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+   	// Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
+   	castDebugLogger.setEnabled(true);
+
+   	castDebugLogger.loggerLevelByEvents = {
+   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.INFO,
+   	  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG
+   	}
+
+   	castDebugLogger.showDebugLogs(true);
+   	// DEBUGGING
     
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
