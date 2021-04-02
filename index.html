@@ -1,7 +1,7 @@
 <html>
 <head>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
-  <script src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
 </head>
 <body>
    <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
@@ -14,12 +14,15 @@
    	castDebugLogger.setEnabled(true);
 
    	castDebugLogger.loggerLevelByEvents = {
-   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.DEBUG,
    	  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG,
    	  'cast.framework.events.category.REQUEST': cast.framework.LoggerLevel.DEBUG,
    	  'cast.framework.events.EventType.ERROR': cast.framework.LoggerLevel.DEBUG,
    	  'cast.framework.events.category.DEBUG': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.category.FINE': cast.framework.LoggerLevel.DEBUG
+   	  'cast.framework.events.category.FINE': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.messages.MessageType.PLAY' : cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.messages.MessageType.PAUSE' : cast.framework.LoggerLevel.DEBUG,
+   	  'cast.framework.messages.MessageType.SEEK' : cast.framework.LoggerLevel.DEBUG
    	}
 
    	castDebugLogger.showDebugLogs(true);
@@ -136,7 +139,8 @@
 
           videoFullScreenPlay();
 
-          hideCMP();
+          // DEBUGGING 
+          // hideCMP();
         }
     });
 
