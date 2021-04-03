@@ -45,38 +45,38 @@
 
   	}
 
-  	// playerManager.addEventListener(
-  	//   cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+  	playerManager.addEventListener(
+  	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-  	//     if (urlHolder != event.mediaStatus.media.contentUrl) {
+  	    if (urlHolder != event.mediaStatus.media.contentUrl) {
 
-  	//       urlHolder = event.mediaStatus.media.contentUrl;
+  	      urlHolder = event.mediaStatus.media.contentUrl;
 
-  	//       changeSource(urlHolder);
-  	//       shadowVideo.load();
-  	//       shadowVideo.play();
-  	//       hideCMP();
+  	      changeSource(urlHolder);
+  	      shadowVideo.load();
+  	      shadowVideo.play();
+  	      hideCMP();
 
-  	//     }
-  	// }
+  	    }
+  	}
 
-  	playerManager.setMessageInterceptor(
-  	  cast.framework.messages.MessageType.LOAD, loadRequestData => {
+  	// playerManager.setMessageInterceptor(
+  	//   cast.framework.messages.MessageType.LOAD, loadRequestData => {
   	    
-  	    var entity = loadRequestData.media.entity;
-  	    var contentUrl = loadRequestData.media.contentUrl;
+  	//     var entity = loadRequestData.media.entity;
+  	//     var contentUrl = loadRequestData.media.contentUrl;
 
-  	    changeSource(contentUrl);
-  	    shadowVideo.load();
-  	    shadowVideo.play();
-  	    hideCMP();
+  	//     changeSource(contentUrl);
+  	//     shadowVideo.load();
+  	//     shadowVideo.play();
+  	//     hideCMP();
 
-  	    loadRequestData.media.entity = "";
-  	    loadRequestData.media.contentId = "";
-  	    loadRequestData.media.contentUrl = "";
+  	//     loadRequestData.media.entity = "";
+  	//     loadRequestData.media.contentId = "";
+  	//     loadRequestData.media.contentUrl = "";
 
-        return loadRequestData;
-  	});
+   //      return loadRequestData;
+  	// });
 
 	context.start();
   </script>
