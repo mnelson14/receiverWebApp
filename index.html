@@ -1,183 +1,84 @@
 <html>
 <head>
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
-  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
 </head>
 <body>
-   <video id="video1" controls autoplay><source id="source1" src="" type=""></video>
-   <cast-media-player id="player"></cast-media-player>
-   <script>
+  <cast-media-player id="player"></cast-media-player>
+  <script>
+  	const context = cast.framework.CastReceiverContext.getInstance();
+  	const playerManager = context.getPlayerManager();
+  	var urlHolder = "";
 
-   	// DEBUGGING 
-   	const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
-   	// Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
-   	castDebugLogger.setEnabled(true);
+  	var cmp = document.getElementById("player");
+  	var shadowVideo = cmp.shadowRoot.getElementById("castMediaElement");
 
-   	castDebugLogger.loggerLevelByEvents = {
-   	  'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.category.REQUEST': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.EventType.ERROR': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.category.DEBUG': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.category.FINE': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.events.category.CORE': cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.messages.MessageType.PLAY' : cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.messages.MessageType.PAUSE' : cast.framework.LoggerLevel.DEBUG,
-   	  'cast.framework.messages.MessageType.SEEK' : cast.framework.LoggerLevel.DEBUG
-   	}
+  	function changeSource(url) {
+  	  var firstSource = getFirstSource();
 
-   	castDebugLogger.showDebugLogs(true);
-   	// DEBUGGING
-    
-    const context = cast.framework.CastReceiverContext.getInstance();
-    const playerManager = context.getPlayerManager();
+  	  firstSource.setAttribute('src', url);
 
-    var urlHolder = "";
+  	  if (url.includes('.mp4')) {
+  	    firstSource.setAttribute('type', 'video/mp4');
+  	  } else {
+  	    firstSource.setAttribute('type', 'application/x-mpegurl');
+  	  }
 
-    function changeSource(url) {
-      var source1 = document.getElementById('source1');
-      source1.setAttribute('src', url);
+  	}
 
-      if (url.includes('.mp4')) {
-        source1.setAttribute('type', 'video/mp4');
-      } else {
-        source1.setAttribute('type', 'application/x-mpegurl');
-      }
+  	function getFirstSource() {
+  	   var firstSource = shadowVideo.getElementsByTagName("source")[0];
 
-    }
+  	   if (!firstSource) {
+  	   	 var source = document.createElement('source');
+  	   	 shadowVideo.appendChild(source);
+  	   	 firstSource = shadowVideo.getElementsByTagName("source")[0];
+  	   }
 
-    function videoFullScreenPlay() {
-      var video = document.getElementById('video1');
-      
-      video.style.width  = "100%";
-      video.style.height = "100%";
+  	   return firstSource;
+  	}
 
-      video.load();
-      video.play();
-    }
+  	function hideCMP() {
+  		cmp.shadowRoot.getElementsByClassName("logo").style.display = "none";
+  		cmp.shadowRoot.getElementsByClassName("gradient").style.display = "none";
+  		cmp.shadowRoot.getElementsByClassName("audioPlaybackBackground").style.display = "none";
+  		cmp.shadowRoot.getElementsByClassName("audioPlaybackBackgroundScrim").style.display = "none";
 
-    function videoPlay() {
-      var video = document.getElementById('video1');
-      video.play();
-    }
+  	}
 
-    function videoPause() {
-      var video = document.getElementById('video1');
-      video.pause();
-    }
+  	// playerManager.addEventListener(
+  	//   cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-    function videoFF() {
-      var video = document.getElementById('video1');
-      var currentTime = video.currentTime;
-      video.currentTime = currentTime + 15;
-    }
+  	//     if (urlHolder != event.mediaStatus.media.contentUrl) {
 
-    function videoRR() {
-      var video = document.getElementById('video1');
-      var currentTime = video.currentTime;
-      video.currentTime = currentTime - 15;
-    }
+  	//       urlHolder = event.mediaStatus.media.contentUrl;
 
-    function hideCMP() {
-      var player = document.getElementById('player');
-      player.style.display = "none";
-    }
+  	//       changeSource(urlHolder);
+  	//       shadowVideo.load();
+  	//       shadowVideo.play();
+  	//       hideCMP();
 
+  	//     }
+  	// }
 
-    playerManager.setMessageInterceptor(
-      cast.framework.messages.MessageType.PLAY,
-      request => {
-        console.log("PLAY");
-        videoPlay();
-        return request;
-      }
-    );
+  	playerManager.setMessageInterceptor(
+  	  cast.framework.messages.MessageType.LOAD, loadRequestData => {
+  	    
+  	    var entity = loadRequestData.media.entity;
+  	    var contentUrl = loadRequestData.media.contentUrl;
 
-    playerManager.setMessageInterceptor(
-      cast.framework.messages.MessageType.PAUSE,
-      request => {
-        console.log("PAUSE");
-        videoPause();
-        return request;
-      }
-    );
+  	    changeSource(contentUrl);
+  	    shadowVideo.load();
+  	    shadowVideo.play();
+  	    hideCMP();
 
-    // playerManager.setMessageInterceptor(
-    //   cast.framework.messages.MessageType.SEEK,
-    //   request => {
-    //     var time = request.seekData.relativeTime;
+  	    loadRequestData.media.entity = "";
+  	    loadRequestData.media.contentId = "";
+  	    loadRequestData.media.contentUrl = "";
 
-    //     if (time > 0) {
-    //       videoFF();
-    //     } 
+        return loadRequestData;
+  	});
 
-    //     if (time < 0) {
-    //       videoRR();
-    //     }
-
-    //     console.log("SEEK");
-    //     console.log(request);
-    //     return request;
-    //   }
-    // );
-
-
-    playerManager.addEventListener(
-      cast.framework.events.EventType.LOAD_START, (event) => {
-        console.log("LOAD_START");
-        console.log(event);
-    });
-
-
-    playerManager.addEventListener(
-      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
-
-        if (urlHolder != event.mediaStatus.media.contentUrl) {
-
-          urlHolder = event.mediaStatus.media.contentUrl;
-
-          changeSource(urlHolder);
-
-          videoFullScreenPlay();
-
-          // DEBUGGING 
-          // hideCMP();
-        }
-    });
-
-
-    // playerManager.addEventListener(
-    //   cast.framework.events.EventType.ERROR, (event) => {
-    //     console.log("ERROR");
-    //     console.log(event);
-    // });
-
-    // playerManager.addEventListener(
-    //   cast.framework.events.category.CORE, event => {
-    //     console.log("CORE");
-    //     console.log(event);
-    // });
-
-    // playerManager.addEventListener(
-    //   cast.framework.events.category.DEBUG, event => {
-    //     console.log("DEBUG");
-    //     console.log(event);
-    // });
-
-    // playerManager.addEventListener(
-    //   cast.framework.events.category.FINE, event => {
-    //     console.log("FINE");
-    //     console.log(event);
-    // });
-
-    // playerManager.addEventListener(
-    //   cast.framework.events.category.REQUEST, event => {
-    //     console.log("REQUEST");
-    //     console.log(event);
-    // });
-
-
-    context.start();
-
+	context.start();
   </script>
 </body>
 </html>
