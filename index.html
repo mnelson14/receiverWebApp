@@ -3,7 +3,7 @@
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
 </head>
 <body>
-   <video autoplay id="video1"><source id="source1" src="" type=""></video>
+   <video id="video1"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -25,6 +25,11 @@
       video.style.width  = "100%";
       video.style.height = "100%";
       video.load();
+      video.play();
+    }
+
+    function videoPlay() {
+      var video = document.getElementById('video1');
       video.play();
     }
 
@@ -52,6 +57,8 @@
     });
 
     context.start();
+
+    var interval = setInterval(videoPlay, 1000);
   </script>
 </body>
 </html>
