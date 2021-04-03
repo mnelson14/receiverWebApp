@@ -1,84 +1,78 @@
 <html>
 <head>
-  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <script type="text/javascript"
+      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
 </head>
 <body>
-  <cast-media-player id="player"></cast-media-player>
-  <script>
-  	const context = cast.framework.CastReceiverContext.getInstance();
-  	const playerManager = context.getPlayerManager();
-  	var urlHolder = "";
+   <video autoplay id="video1"><source id="source1" src="" type=""></video>
+   <cast-media-player id="player"></cast-media-player>
+   <script>
+    
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const playerManager = context.getPlayerManager();
 
-  	var cmp = document.getElementById("player");
-  	var shadowVideo = cmp.shadowRoot.getElementById("castMediaElement");
+    var urlHolder = "";
 
-  	function changeSource(url) {
-  	  var firstSource = getFirstSource();
+    function changeSource(url) {
+      var source1 = document.getElementById('source1');
+      source1.setAttribute('src', url);
 
-  	  firstSource.setAttribute('src', url);
+      if (url.includes('.mp4')) {
+        source1.setAttribute('type', 'video/mp4');
+      } else {
+        // source1.setAttribute('type', 'application/x-mpegurl');
+        source1.setAttribute('type', 'application/vnd.apple.mpegurl');
+      }
 
-  	  if (url.includes('.mp4')) {
-  	    firstSource.setAttribute('type', 'video/mp4');
-  	  } else {
-  	    firstSource.setAttribute('type', 'application/x-mpegurl');
-  	  }
+    }
 
-  	}
+    function videoFullScreenPlay() {
+      var video = document.getElementById('video1');
+      
+      video.style.width  = "100%";
+      video.style.height = "100%";
 
-  	function getFirstSource() {
-  	   var firstSource = shadowVideo.getElementsByTagName("source")[0];
+      video.load();
+      video.play();
+    }
 
-  	   if (!firstSource) {
-  	   	 var source = document.createElement('source');
-  	   	 shadowVideo.appendChild(source);
-  	   	 firstSource = shadowVideo.getElementsByTagName("source")[0];
-  	   }
+    function hideCMP() {
+      var player = document.getElementById('player');
+      player.style.display = "none";
+    }
 
-  	   return firstSource;
-  	}
+    playerManager.addEventListener(
+      cast.framework.events.EventType.LOAD_START, (event) => {
 
-  	function hideCMP() {
-  		cmp.shadowRoot.querySelectorAll(".logo")[0].style.display = "none";
-  		cmp.shadowRoot.querySelectorAll(".gradient")[0].style.display = "none";
-  		cmp.shadowRoot.querySelectorAll(".audioPlaybackBackground")[0].style.display = "none";
-  		cmp.shadowRoot.querySelectorAll(".audioPlaybackBackgroundScrim")[0].style.display = "none";
+    });
 
-  	}
 
-  	playerManager.addEventListener(
-  	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
+    playerManager.addEventListener(
+      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-  	    if (urlHolder != event.mediaStatus.media.contentUrl) {
+        if (urlHolder != event.mediaStatus.media.contentUrl) {
 
-  	      urlHolder = event.mediaStatus.media.contentUrl;
+          urlHolder = event.mediaStatus.media.contentUrl;
 
-  	      changeSource(urlHolder);
-  	      shadowVideo.load();
-  	      shadowVideo.play();
-  	      hideCMP();
+          changeSource(urlHolder);
 
-  	    }
-  	}
+          videoFullScreenPlay();
 
-  	// playerManager.setMessageInterceptor(
-  	//   cast.framework.messages.MessageType.LOAD, loadRequestData => {
-  	    
-  	//     var entity = loadRequestData.media.entity;
-  	//     var contentUrl = loadRequestData.media.contentUrl;
+          hideCMP();
 
-  	//     changeSource(contentUrl);
-  	//     shadowVideo.load();
-  	//     shadowVideo.play();
-  	//     hideCMP();
+        }
 
-  	//     loadRequestData.media.entity = "";
-  	//     loadRequestData.media.contentId = "";
-  	//     loadRequestData.media.contentUrl = "";
+    });
 
-   //      return loadRequestData;
-  	// });
 
-	context.start();
+    playerManager.addEventListener(
+      cast.framework.events.EventType.ERROR, (event) => {
+
+    });
+
+    context.start();
+
   </script>
 </body>
 </html>
