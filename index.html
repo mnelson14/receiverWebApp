@@ -8,31 +8,25 @@
    <video autoplay id="video1"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
-    
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
-
     var urlHolder = "";
 
     function changeSource(url) {
       var source1 = document.getElementById('source1');
       source1.setAttribute('src', url);
-
       if (url.includes('.mp4')) {
         source1.setAttribute('type', 'video/mp4');
       } else {
         // source1.setAttribute('type', 'application/x-mpegurl');
         source1.setAttribute('type', 'application/vnd.apple.mpegurl');
       }
-
     }
 
     function videoFullScreenPlay() {
       var video = document.getElementById('video1');
-      
       video.style.width  = "100%";
       video.style.height = "100%";
-
       video.load();
       video.play();
     }
@@ -44,35 +38,23 @@
 
     playerManager.addEventListener(
       cast.framework.events.EventType.LOAD_START, (event) => {
-
     });
-
 
     playerManager.addEventListener(
       cast.framework.events.EventType.MEDIA_STATUS, (event) => {
-
         if (urlHolder != event.mediaStatus.media.contentUrl) {
-
           urlHolder = event.mediaStatus.media.contentUrl;
-
           changeSource(urlHolder);
-
           videoFullScreenPlay();
-
           hideCMP();
-
         }
-
     });
-
 
     playerManager.addEventListener(
       cast.framework.events.EventType.ERROR, (event) => {
-
     });
 
     context.start();
-
   </script>
 </body>
 </html>
