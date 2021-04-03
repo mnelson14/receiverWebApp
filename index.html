@@ -38,10 +38,10 @@
   	}
 
   	function hideCMP() {
-  		cmp.shadowRoot.getElementsByClassName("logo")[0].style.display = "none";
-  		cmp.shadowRoot.getElementsByClassName("gradient")[0].style.display = "none";
-  		cmp.shadowRoot.getElementsByClassName("audioPlaybackBackground")[0].style.display = "none";
-  		cmp.shadowRoot.getElementsByClassName("audioPlaybackBackgroundScrim")[0].style.display = "none";
+  		cmp.shadowRoot.querySelectorAll(".logo")[0].style.display = "none";
+  		cmp.shadowRoot.querySelectorAll(".gradient")[0].style.display = "none";
+  		cmp.shadowRoot.querySelectorAll(".audioPlaybackBackground")[0].style.display = "none";
+  		cmp.shadowRoot.querySelectorAll(".audioPlaybackBackgroundScrim")[0].style.display = "none";
 
   	}
 
