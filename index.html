@@ -64,6 +64,11 @@
         return loadRequestData;
     });
 
+    playerManager.setMessageInterceptor(
+      cast.framework.messages.MessageType.PLAY, playRequestData => {
+        return null;
+    });
+
     context.start();
   </script>
 </body>
