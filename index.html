@@ -3,7 +3,7 @@
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
 </head>
 <body>
-   <video autoplay="true" muted="false" width="100%" height="100%" id="video1"><source id="source1" src="" type=""></video>
+   <video autoplay="true" width="100%" height="100%" id="video1"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -13,7 +13,7 @@
     var video = document.getElementById('video1');
     
     video.onwaiting = function() {
-      // setTimeout(checkForPausedVideo, 8000);
+      videoPlay();
     }
 
     video.onplaying = function() {
@@ -39,15 +39,6 @@
       video.load();
     }
 
-    function checkForPausedVideo() {
-      var video = document.getElementById('video1');
-      if (video.paused) {
-        var seekTime = video.currentTime;
-        videoLoad();
-        video.currentTime = seekTime;
-      }
-    }
-
     function videoPlay() {
       var video = document.getElementById('video1');
       video.play();
@@ -56,11 +47,6 @@
     function videoPause() {
       var video = document.getElementById('video1');
       video.pause();
-    }
-
-    function hideCMP() {
-      var player = document.getElementById('player');
-      player.style.display = "none";
     }
 
     function hideVideo() {
@@ -73,15 +59,15 @@
       video.style.display = "block";
     }
 
+    function hideCMP() {
+      var player = document.getElementById('player');
+      player.style.display = "none";
+    }
+
     function showCMP() {
       var player = document.getElementById('player');
       player.style.display = "block";
     }
-
-    playerManager.addEventListener(
-      cast.framework.events.EventType.MEDIA_STATUS, (event) => {
-        // hideCMP();
-    });
 
     playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.LOAD, loadRequestData => {
