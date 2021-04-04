@@ -20,6 +20,10 @@
       hideCMP();
     }
 
+    video.onended = functon() {
+      context.stop();
+    }
+
     function changeSource(url) {
       var source1 = document.getElementById('source1');
       source1.setAttribute('src', url);
