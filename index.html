@@ -10,6 +10,16 @@
     const playerManager = context.getPlayerManager();
     var urlHolder = "";
 
+    var video = document.getElementById('video1');
+    
+    video.onwaiting = function() {
+      setTimeOut(videoPlay, 4000);
+    }
+
+    video.onplaying = function() {
+      hideCMP();
+    }
+
     function changeSource(url) {
       var source1 = document.getElementById('source1');
       source1.setAttribute('src', url);
@@ -39,26 +49,22 @@
     }
 
     playerManager.addEventListener(
-      cast.framework.events.EventType.LOAD_START, (event) => {
-    });
-
-    playerManager.addEventListener(
       cast.framework.events.EventType.MEDIA_STATUS, (event) => {
-        if (urlHolder != event.mediaStatus.media.contentUrl) {
-          urlHolder = event.mediaStatus.media.contentUrl;
-          changeSource(urlHolder);
-          videoFullScreenPlay();
-          hideCMP();
-        }
+        hideCMP();
     });
 
-    playerManager.addEventListener(
-      cast.framework.events.EventType.ERROR, (event) => {
+    playerManager.setMessageInterceptor(
+      cast.framework.messages.MessageType.LOAD, loadRequestData => {
+        
+        var contentUrl = loadRequestData.media.contentUrl;
+
+        changeSource(contentUrl);
+        videoFullScreenPlay(); 
+
+        return loadRequestData;
     });
 
     context.start();
-
-    var interval = setInterval(videoPlay, 500);
   </script>
 </body>
 </html>
