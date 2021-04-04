@@ -3,7 +3,7 @@
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
 </head>
 <body>
-   <video id="video1"><source id="source1" src="" type=""></video>
+   <video autoplay="autoplay" muted="false" width="100%" height="100%" id="video1"><source id="source1" src="" type=""></video>
    <cast-media-player id="player"></cast-media-player>
    <script>
     const context = cast.framework.CastReceiverContext.getInstance();
@@ -13,7 +13,7 @@
     var video = document.getElementById('video1');
     
     video.onwaiting = function() {
-      setTimeout(videoPlay, 4000);
+      setTimeout(checkForPausedVideo, 8000);
     }
 
     video.onplaying = function() {
@@ -30,12 +30,18 @@
       }
     }
 
-    function videoFullScreenPlay() {
+    function videoLoad() {
       var video = document.getElementById('video1');
-      video.style.width  = "100%";
-      video.style.height = "100%";
       video.load();
-      video.play();
+    }
+
+    function checkForPausedVideo() {
+      var video = document.getElementById('video1');
+      if (video.paused) {
+        var seekTime = video.currentTime;
+        videoLoad()
+        video.currentTime = seekTime
+      }
     }
 
     function videoPlay() {
@@ -43,9 +49,29 @@
       video.play();
     }
 
+    function videoPause() {
+      var video = document.getElementById('video1');
+      video.pause();
+    }
+
     function hideCMP() {
       var player = document.getElementById('player');
       player.style.display = "none";
+    }
+
+    function hideVideo() {
+      var video = document.getElementById('video1');
+      video.style.display = "none";
+    }
+
+    function showVideo() {
+      var video = document.getElementById('video1');
+      video.style.display = "block";
+    }
+
+    function showCMP() {
+      var player = document.getElementById('player');
+      player.style.display = "block";
     }
 
     playerManager.addEventListener(
@@ -59,14 +85,19 @@
         var contentUrl = loadRequestData.media.contentUrl;
 
         changeSource(contentUrl);
-        videoFullScreenPlay(); 
+        videoLoad(); 
 
         return loadRequestData;
     });
 
     playerManager.setMessageInterceptor(
       cast.framework.messages.MessageType.PLAY, playRequestData => {
-        return null;
+
+        videoPause();
+        hideVideo();
+        showCMP();
+
+        return playRequestData;
     });
 
     context.start();
