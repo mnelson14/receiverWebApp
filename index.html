@@ -1,97 +1,61 @@
-  <html>		
+<html>
 <head>
   <script type="text/javascript"
       src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
   </script>
 </head>
 <body>
-  <!-- <cast-media-player></cast-media-player> -->
-<!--   <video id="video1" width="320" height="240" autoplay>
-  	<source src="" type="video/mp4">
-  </video> -->
   <p id="text1" style="color:red;"></p>
   <p id="text2" style="color:red;"></p>
-  <p id="text3" style="color:red;"></p>
-  <p id="text4" style="color:red;"></p>
-  <p id="text5" style="color:red;"></p>
-  <p id="text6" style="color:red;"></p>
-  <p id="text7" style="color:red;"></p>
-  <p id="text8" style="color:red;"></p>
-  <p id="text9" style="color:red;"></p>
-  <p id="text10" style="color:red;"></p>
-  <p id="text11" style="color:red;"></p>
-  <p id="text12" style="color:red;"></p>  
+
+  <video id="video" width="320" height="240"></video>
 
 
-
-
-
+  <!-- <cast-media-player></cast-media-player> -->
   <script>
 
-	var elem = document.getElementById("video1");
-  var holdingURL = "holdingURL";
+  	const context = cast.framework.CastReceiverContext.getInstance();
+	  const playerManager = context.getPlayerManager();
 
-	function openFullscreen() {
-	if (elem.requestFullscreen) {
-	    elem.requestFullscreen();
-	  } else if (elem.webkitRequestFullscreen) { /* Safari */
-	    elem.webkitRequestFullscreen();
-	  } else if (elem.msRequestFullscreen) { /* IE11 */
-	    elem.msRequestFullscreen();
-	  }
-	}
+  	playerManager.addEventListener(
+  	  cast.framework.events.EventType.MEDIA_STATUS, (event) => {
 
-  /// GCKMediaLoadOptions -> customData - some sort of JSON 
-  const context = cast.framework.CastReceiverContext.getInstance();
-  const options = new cast.framework.CastReceiverOptions();
+  	  	// event.mediaStatus.media.contentId;
+  	    // event.mediaStatus.media.contentUrl;
+  	    // event.mediaStatus.media.customData;
 
-  const playerManager = context.getPlayerManager();
+  	    // document.getElementById("text1").innerHTML = event.mediaStatus.media.contentId;
+  	    document.getElementById("text2").innerHTML = event.mediaStatus.media.contentUrl;
 
-  playerManager.setMessageInterceptor(
-    cast.framework.messages.MessageType.LOAD, loadRequestData => {
-      
+  	    var video = document.getElementById('video');
+  	    var source = document.createElement('source');
 
-      if (!loadRequestData.media.entity) {
-        // Copy the value from contentId for legacy reasons if needed
-        loadRequestData.media.entity = loadRequestData.media.contentId;
-      }
+  	    source.setAttribute('src', event.mediaStatus.media.contentUrl);
 
-      holdingURL = loadRequestData.media.entity;
+  	    var vContentUrl = event.mediaStatus.media.contentUrl;
 
-      return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
-                                          loadRequestData.credentials)
-        .then(asset => {
-          loadRequestData.media.contentUrl = asset.url;
-          holdingURL = asset.url;
-          
-          return loadRequestData;
-        }); 
-  }); 
+  	    source.setAttribute('type', 'video/mp4');
+
+
+  	    if (vContentUrl.includes('.m3u8')) {
+	  	    source.setAttribute('type', 'application/x-mpegURL');
+  	    }
 
 
 
-	// openFullscreen();	
+  	    video.appendChild(source);
 
-    cast.framework.CastReceiverContext.getInstance().start();
+  	    // playerManager.stop();
 
-    // document.getElementById("text1").innerHTML = options;
+  	    // video.load();
+  	    // video.play();
 
-    document.getElementById("text2").innerHTML = cast.framework.messages.LoadRequestData.customData;
 
-    // document.getElementById("text3").innerHTML = cast.framework.playerManager.getMediaInformation();
 
-    document.getElementById("text4").innerHTML = holdingURL;
 
-    // document.getElementById("text5").innerHTML = cast.framework.playerManager.getMediaInformation().contentUrl;
+  	});
 
-    // document.getElementById("text6").innerHTML = 
-    // document.getElementById("text7").innerHTML = 
-    // document.getElementById("text8").innerHTML = 
-    // document.getElementById("text9").innerHTML = 
-    // document.getElementById("text10").innerHTML = 
-    // document.getElementById("text11").innerHTML = 
-    // document.getElementById("text12").innerHTML = 
-
+    context.start();
 
   </script>
 </body>
