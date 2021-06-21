@@ -3,23 +3,18 @@
   <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
   <style>
   iframe{
-    width:100%;
-    height:100%;
     position:absolute;
-    z-index: 9999;
+    z-index:9999;
   }
   </style>
 </head>
 <body>
-   <!-- <video autoplay="true" width="100%" height="100%" id="video1"><source id="source1" src="" type=""></video> -->
-   <iframe src="" id="frame1"></iframe> 
+   <iframe src="" width="100%" height="100%" id="frame1"></iframe> 
    <cast-media-player id="player"></cast-media-player>
    <script>
     const context = cast.framework.CastReceiverContext.getInstance();
     const playerManager = context.getPlayerManager();
     var urlHolder = "";
-
-    // var video = document.getElementById('video1');
     
     function changeSource(url) {
       var source1 = document.getElementById('frame1');
