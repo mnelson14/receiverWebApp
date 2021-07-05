@@ -5,15 +5,14 @@ const playerManager = context.getPlayerManager();
 
 playerManager.addEventListener(
     cast.framework.events.EventType.ERROR, (event) => {
-      // Write your own event handling code, for example
-      // using the event.mediaStatus value
+      let body = document.getElementsByTagName("body")[0];
+      body.style.setProperty('--logo-image', 'url("getApp.png")');
+});
 
-      // Update style using javascript
-      // let playerElement = document.getElementsByTagName("cast-media-player")[0];
-      // playerElement.style.setProperty('--splash-image', 'url("getApp.png")');
-
-      let playerElement = document.getElementsByTagName("body")[0];
-      playerElement.style.setProperty('--logo-image', 'url("getApp.png")');
+playerManager.addEventListener(
+    cast.framework.events.EventType.LOAD_START, (event) => {
+      let body = document.getElementsByTagName("body")[0];
+      body.style.setProperty('--logo-image', 'url("https://www.gstatic.com/eureka/player/0000/skins/cast/logo.png")');
 });
 
 context.start();
